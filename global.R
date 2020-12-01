@@ -4,19 +4,16 @@ library(shinymanager)
 library(DBI)
 library(tibble)
 
-to_title_case = function(x) {
-  x = tolower(x)
-  substr(x, 1, 1) = toupper(substr(x, 1, 1))
-  return(x)
-}
+source("./R/utils.R")
 
-if (Sys.getenv("DB_PASSPHRASE") == "") {
-  DB_PASSPHRASE = "my_custom_pass"
-} else {
-  DB_PASSPHRASE = Sys.getenv("DB_PASSPHRASE")
-}
+# Set up env vars
+DB_PASSPHRASE = get_default_env_var("DB_PASSPHRASE", "my_custom_pass")
+DB_PATH = get_default_env_var("DB_PATH", "db.sqlite")
 
 # TODO: Check for db.sqlite, if it's not there then stop from running
+if (!file.exists(DB_PATH)) {
+  source(file.path("inst", "init_db.R"))
+}
 
 # Form DB connection
-con = DBI::dbConnect(RSQLite::SQLite(), dbname = "db.sqlite")
+con = DBI::dbConnect(RSQLite::SQLite(), dbname = DB_PATH)
