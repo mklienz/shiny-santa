@@ -1,4 +1,4 @@
-# library(shiny)
+library(shiny)
 library(shinymanager)
 
 # Setup that doesn't need to go in core shinyapp --------------------------
@@ -18,6 +18,7 @@ OFFICEMATES = c(
 )
 
 DB_PASSPHRASE = "my_custom_pass"
+DB_PATH = file.path(rprojroot::find_rstudio_root_file(), "db.sqlite")
 
 base_credentials = data.frame(
   user = OFFICEMATES, # Vector of names
@@ -34,16 +35,16 @@ shinymanager::create_db(
 )
 
 # Init DB tables
-con = DBI::dbConnect(RSQLite::SQLite(), dbname = "db.sqlite")
+con = DBI::dbConnect(RSQLite::SQLite(), dbname = DB_PATH)
 
 # pairing table
-init_pairs = data.frame(
-  gifter = OFFICEMATES,
-  receiver = sample(OFFICEMATES, length(OFFICEMATES))
+init_pairs = tibble::tibble(
+  gifter = sample(OFFICEMATES, length(OFFICEMATES)),
+  receiver = c(gifter[-1], gifter[1])
 )
 
 # wishlist table
-init_wishlist = data.frame(
+init_wishlist = tibble::tibble(
   receiver = OFFICEMATES,
   wishlist = rep("Nothing here yet", length(OFFICEMATES))
 )
