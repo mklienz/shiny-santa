@@ -5,16 +5,41 @@ library(DBI)
 library(tibble)
 
 source("./R/utils.R")
+source("./R/is_db_ffp.R")
+source("./R/init_shiny_santa_db.R")
+source("./R/check_pg_db.R")
 
 # Set up env vars
 DB_PASSPHRASE = get_default_env_var("DB_PASSPHRASE", "my_custom_pass")
-DB_PATH = get_default_env_var("DB_PATH", "db.sqlite")
 
-# TODO: Check for db.sqlite, if it's not there then stop from running
-if (!file.exists(DB_PATH)) {
-  message("No db found; making a new one")
-  source(file.path("inst", "init_db.R"))
+if (Sys.getenv("DATABASE_URL") == "") {
+  stop("Can't find a database connection")
+} else {
+  DB_PATH = Sys.getenv("DATABASE_URL")
+  # Check if the database is fit for purpose. If not, initalise by running init_db script
+  if (!is_db_ffp(db_path = DB_PATH)) {
+    message("Database is not fit for purpose; re-initialising")
+
+    OFFICEMATES = c(
+      "alex",
+      "ari",
+      "arvin",
+      "glenn",
+      "harel",
+      "lisa",
+      "matt",
+      "mia",
+      "michael",
+      "nick",
+      "stacey",
+      "travis"
+    )
+
+    init_shiny_santa_db(
+      db_path = DB_PATH,
+      db_passphrase = DB_PASSPHRASE,
+      people = OFFICEMATES,
+      admin = "matt"
+    )
+  }
 }
-
-# Form DB connection
-con = DBI::dbConnect(RSQLite::SQLite(), dbname = DB_PATH)
