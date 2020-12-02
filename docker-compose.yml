@@ -4,5 +4,6 @@ services:
   r:
     image: shiny-santa
     build: .
+    env_file: .env
     ports:
       - 3838:3838
