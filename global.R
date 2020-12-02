@@ -55,3 +55,4 @@ con = DBI::dbConnect(
   password = pg$password,
   sslmode = "require"
 )
+print(DBI::dbListTables(con))
