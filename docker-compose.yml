@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  r:
+    image: shiny-santa
+    build: .
+    ports:
+      - 3838:3838
