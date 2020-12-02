@@ -22,7 +22,7 @@ DB_PATH = "db.sqlite"
 
 base_credentials = data.frame(
   user = OFFICEMATES, # Vector of names
-  password = rep("best_harmonic_office", length(OFFICEMATES)),
+  password = rep("harmonic", length(OFFICEMATES)),
   admin = grepl("matt", OFFICEMATES),
   stringsAsFactors = FALSE
 )
