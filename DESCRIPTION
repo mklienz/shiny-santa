@@ -13,10 +13,12 @@ License: `use_mit_license()`, `use_gpl3_license()` or friends to
 Imports: 
     DBI,
     dplyr,
-    RSQLite,
+    httr,
+    RPostgres,
     shiny,
     shinydashboard,
-    shinymanager
+    shinymanager,
+    tibble
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
