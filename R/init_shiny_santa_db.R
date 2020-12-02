@@ -7,7 +7,7 @@ init_shiny_santa_db = function(db_path,
                                admin = NULL) {
 
   # Defensive programming - people should be a character vector
-  if (!all(lapply(people, is.character))) {
+  if (!all(sapply(people, is.character, USE.NAMES = FALSE))) {
     stop("people should be a character vector")
   }
 

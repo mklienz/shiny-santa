@@ -2,7 +2,7 @@
 is_db_ffp = function(db_path, expected_tables = c("credentials", "pairs", "wishlist")) {
 
   # Defensive check - expected_tables should be a character vector
-  if (!all(lapply(expected_tables, is.character))) {
+  if (!all(sapply(expected_tables, is.character, USE.NAMES = FALSE))) {
     stop("expected_tables should be a character vector")
   }
 
