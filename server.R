@@ -1,8 +1,8 @@
 server = function(input, output, session) {
 
   res_auth = shinymanager::secure_server(
-    check_credentials = shinymanager::check_credentials(
-      db = "db.sqlite",
+    check_credentials = check_pg_credentials(
+      db_path = DB_PATH,
       passphrase = DB_PASSPHRASE
     )
   )

@@ -8,6 +8,7 @@ source("./R/utils.R")
 source("./R/is_db_ffp.R")
 source("./R/init_shiny_santa_db.R")
 source("./R/check_pg_db.R")
+source("./R/check_pg_credentials.R")
 
 # Set up env vars
 DB_PASSPHRASE = get_default_env_var("DB_PASSPHRASE", "my_custom_pass")
@@ -43,3 +44,14 @@ if (Sys.getenv("DATABASE_URL") == "") {
     )
   }
 }
+
+pg = httr::parse_url(DB_PATH)
+con = DBI::dbConnect(
+  drv = RPostgres::Postgres(),
+  dbname = trimws(pg$path),
+  host = pg$hostname,
+  port = pg$port,
+  user = pg$username,
+  password = pg$password,
+  sslmode = "require"
+)
