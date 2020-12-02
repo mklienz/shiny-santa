@@ -10,7 +10,8 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libxt-dev \
   xtail \
   wget \
-  libssl-dev
+  libssl-dev \
+  libpq-dev
 
 RUN Rscript -e "install.packages('remotes')"
 
