@@ -18,7 +18,7 @@ OFFICEMATES = c(
 )
 
 DB_PASSPHRASE = "my_custom_pass"
-DB_PATH = file.path(rprojroot::find_rstudio_root_file(), "db.sqlite")
+DB_PATH = "db.sqlite"
 
 base_credentials = data.frame(
   user = OFFICEMATES, # Vector of names

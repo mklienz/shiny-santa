@@ -12,6 +12,7 @@ DB_PATH = get_default_env_var("DB_PATH", "db.sqlite")
 
 # TODO: Check for db.sqlite, if it's not there then stop from running
 if (!file.exists(DB_PATH)) {
+  message("No db found; making a new one")
   source(file.path("inst", "init_db.R"))
 }
 
