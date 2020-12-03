@@ -17,12 +17,12 @@ RUN Rscript -e "install.packages('remotes')"
 
 WORKDIR /app
 
-COPY DESCRIPTION /app/DESCRIPTION
+COPY ./shiny-santa/DESCRIPTION /app/DESCRIPTION
 
 RUN Rscript -e "remotes::install_deps()"
 RUN Rscript -e "install.packages('shinymanager', repos='https://mran.microsoft.com/snapshot/2020-08-31')"
 
-COPY . /app
+COPY ./shiny-santa /app
 
 RUN chmod -R 777 /app
 
