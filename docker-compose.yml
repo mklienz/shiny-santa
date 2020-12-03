@@ -1,9 +1,27 @@
 version: '2.1'
 
 services:
+  db:
+    image: postgres:12
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=santadb
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_pass
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+
   r:
     image: shiny-santa
     build: .
-    env_file: .env
+    # env_file: .env
+    environment:
+      - DATABASE_URL=postgres://postgres_user:postgress_pass@db:5432/santadb
     ports:
       - 3838:3838
+    depends_on:
+      - db
+
+volumes:
+  db_data:
