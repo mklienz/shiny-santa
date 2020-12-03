@@ -39,9 +39,15 @@ ui = dashboardPage(
     # JS for password change
     tags$script(HTML(
       "
+      $('#update_pw').on('click', function() {
+        $(this).prop('disabled', true);
+      });
+
       Shiny.addCustomMessageHandler('changedPassword', passwordAlert);
+
       function passwordAlert(msg) {
-      alert(msg);
+        alert(msg);
+        $('#update_pw').prop('disabled', false);
       }
       "
     ))
