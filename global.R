@@ -9,6 +9,7 @@ source("./R/is_db_ffp.R")
 source("./R/init_shiny_santa_db.R")
 source("./R/check_pg_db.R")
 source("./R/check_pg_credentials.R")
+source("./R/update_password.R")
 
 # Set up env vars
 DB_PASSPHRASE = get_default_env_var("DB_PASSPHRASE", "my_custom_pass")
@@ -55,4 +56,3 @@ con = DBI::dbConnect(
   password = pg$password,
   sslmode = "require"
 )
-print(DBI::dbListTables(con))

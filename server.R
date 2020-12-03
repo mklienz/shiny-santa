@@ -71,4 +71,13 @@ server = function(input, output, session) {
                                      passphrase = DB_PASSPHRASE)
   })
 
+  observeEvent(input$update_pw, {
+    res = update_password(user = res_auth$user, pwd = input$new_pw, db_path = DB_PATH, passphrase = DB_PASSPHRASE)
+    if (res$result) {
+      session$sendCustomMessage('changedPassword', "Successfully changed password")
+    } else {
+      session$sendCustomMessage('changedPassword', "Failed to change password")
+    }
+  })
+
 }
