@@ -30,7 +30,7 @@ server = function(input, output, session) {
       dplyr::pull(receiver) %>%
       to_title_case()
 
-    return (giftee_name)
+    return (paste("You are gifting to", to_title_case(giftee_name)))
   })
 
   output$receiver_wishlist = renderText({

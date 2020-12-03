@@ -6,16 +6,13 @@ ui = dashboardPage(
   sidebar = dashboardSidebar(disable=TRUE),
 
   body = dashboardBody(
-    tags$head(
-      tags$link(rel = "stylesheet", type = "text/css", href = "loader.css")
-    ),
-
+    # The app
     h1(textOutput("gifter")),
     fluidRow(
       box(
         width = 6,
         title = "About your Giftee",
-        p("You are gifting to", textOutput("receiver")),
+        p(textOutput("receiver")),
         p("Their wishlist:"),
         p(textOutput("receiver_wishlist"))
       ),
@@ -27,10 +24,7 @@ ui = dashboardPage(
         uiOutput("edit_wishlist_ui"),
         actionButton("update_wishlist", "Update")
       )
-    ),
-    div(class="loader"),
-
-
+    )
   )
 )
 
