@@ -30,7 +30,6 @@ if (Sys.getenv("DATABASE_URL") == "") {
       "harel",
       "lisa",
       "matt",
-      "mia",
       "michael",
       "nick",
       "stacey",
