@@ -2,7 +2,11 @@ version: '2.1'
 
 services:
   db:
-    image: postgres:12
+    image: postgres
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    command: -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
     ports:
       - 5432:5432
     environment:
@@ -15,9 +19,8 @@ services:
   r:
     image: shiny-santa
     build: .
-    # env_file: .env
     environment:
-      - DATABASE_URL=postgres://postgres_user:postgress_pass@db:5432/santadb
+      - DATABASE_URL=postgres://postgres_user:postgres_pass@db:5432/santadb
     ports:
       - 3838:3838
     depends_on:
