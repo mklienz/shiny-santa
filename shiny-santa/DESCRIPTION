@@ -1,23 +1,22 @@
 Package: shiny-santa
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
+Title: A Secret Santa Application using Shiny
+Version: 0.0.1
+Authors@R:
+    person(given = "Matt",
+           family = "Lie",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "mklienz@gmail.com")
+Description: A Shiny app that facilitates Secret Santa.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
-Imports: 
+Imports:
     DBI,
     dplyr,
     httr,
     RPostgres,
     shiny,
     shinydashboard,
-    shinymanager,
+    shinymanager (>= 1.0.300),
     tibble
 Encoding: UTF-8
 LazyData: true
