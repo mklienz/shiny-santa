@@ -1,7 +1,7 @@
 Package: shiny-santa
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
-Authors@R: 
+Authors@R:
     person(given = "First",
            family = "Last",
            role = c("aut", "cre"),
@@ -10,14 +10,14 @@ Authors@R:
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
-Imports: 
+Imports:
     DBI,
     dplyr,
     httr,
     RPostgres,
     shiny,
     shinydashboard,
-    shinymanager,
+    shinymanager (>= 1.0.300),
     tibble
 Encoding: UTF-8
 LazyData: true
