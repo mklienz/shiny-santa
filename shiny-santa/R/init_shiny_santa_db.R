@@ -63,5 +63,62 @@ init_shiny_santa_db = function(db_path,
                                  name = "wishlist",
                                  passphrase = db_passphrase)
 
+}
 
+
+reset_db = function(db_path,
+                    db_passphrase = NULL,
+                    people,
+                    default_password = "harmonic",
+                    default_wishlist = "Nothing here yet",
+                    admin = NULL) {
+  # Reset the DB by removing current tables then re-running init
+  clear_db(db_path)
+
+  init_shiny_santa_db(db_path,
+                      db_passphrase,
+                      people,
+                      default_password,
+                      default_wishlist,
+                      admin)
+
+}
+
+clear_db = function(db_path) {
+  pg = httr::parse_url(db_path)
+  conn <- DBI::dbConnect(
+    drv = RPostgres::Postgres(),
+    dbname = trimws(pg$path),
+    host = pg$hostname,
+    port = pg$port,
+    user = pg$username,
+    password = pg$password,
+    sslmode = "require"
+  )
+  on.exit(DBI::dbDisconnect(conn))
+
+  tbls = DBI::dbListTables(conn)
+  lapply(tbls, function(t, conn) {
+    DBI::dbRemoveTable(conn, t)
+  }, conn = conn)
+}
+
+
+check_wishlists = function(db_path, db_passphrase) {
+  pg = httr::parse_url(db_path)
+  conn <- DBI::dbConnect(
+    drv = RPostgres::Postgres(),
+    dbname = trimws(pg$path),
+    host = pg$hostname,
+    port = pg$port,
+    user = pg$username,
+    password = pg$password,
+    sslmode = "require"
+  )
+  on.exit(DBI::dbDisconnect(conn))
+
+  wishlists = shinymanager::read_db_decrypt(conn, "wishlist", db_passphrase)
+  n_changed = length(which(wishlists$wishlist == "Nothing here yet"))
+  n_total = nrow(wishlists)
+  message(paste(n_changed, "of", n_total, "people have not added wishlists yet"))
 }

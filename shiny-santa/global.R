@@ -18,30 +18,9 @@ if (Sys.getenv("DATABASE_URL") == "") {
   stop("Can't find a database connection")
 } else {
   DB_PATH = Sys.getenv("DATABASE_URL")
-  # Check if the database is fit for purpose. If not, initalise by running init_db script
+  # Check if the database is fit for purpose. If not, iniitalise by running init_db script
   if (!is_db_ffp(db_path = DB_PATH)) {
-    message("Database is not fit for purpose; re-initialising")
-
-    OFFICEMATES = c(
-      "alex",
-      "ari",
-      "arvin",
-      "glenn",
-      "harel",
-      "lisa",
-      "matt",
-      "michael",
-      "nick",
-      "stacey",
-      "travis"
-    )
-
-    init_shiny_santa_db(
-      db_path = DB_PATH,
-      db_passphrase = DB_PASSPHRASE,
-      people = OFFICEMATES,
-      admin = "matt"
-    )
+    stop("Database is not fit for purpose; sort it out")
   }
 }
 
